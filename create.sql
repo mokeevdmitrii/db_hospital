@@ -31,7 +31,7 @@ CREATE TABLE hospital.EMPLOYEES
     post_nm           VARCHAR(255) NOT NULL,
     specialization_nm VARCHAR(255),
     mobile_phone_no   VARCHAR(15),
-    department_id     INTEGER NOT NULL REFERENCES hospital.DEPARTMENTS (department_id)
+    department_id     INTEGER      NOT NULL REFERENCES hospital.DEPARTMENTS (department_id)
 );
 
 
@@ -46,29 +46,30 @@ CREATE TABLE hospital.DIACRISISES
 DROP TABLE IF EXISTS hospital.DRUGS CASCADE;
 CREATE TABLE hospital.DRUGS
 (
-    drug_id INTEGER PRIMARY KEY,
-    drug_nm VARCHAR(255) NOT NULL,
-    min_age_dk INTEGER CHECK(min_age_dk >= 0)
+    drug_id    INTEGER PRIMARY KEY,
+    drug_nm    VARCHAR(255) NOT NULL,
+    min_age_dk INTEGER CHECK (min_age_dk >= 0)
 );
 
 DROP TABLE IF EXISTS hospital.TREATMENT_HISTORY;
 CREATE TABLE hospital.TREATMENT_HISTORY
 (
-    record_id         INTEGER PRIMARY KEY,
-    patient_id        INTEGER      NOT NULL REFERENCES hospital.PATIENTS (patient_id),
-    employee_id       INTEGER      NOT NULL REFERENCES hospital.EMPLOYEES (employee_id),
-    diacrisis_id      INTEGER      NOT NULL REFERENCES hospital.DIACRISISES (diacrisis_id),
-    entry_dttm        TIMESTAMP(0) NOT NULL,
+    record_id          INTEGER PRIMARY KEY,
+    patient_id         INTEGER      NOT NULL REFERENCES hospital.PATIENTS (patient_id),
+    employee_id        INTEGER      NOT NULL REFERENCES hospital.EMPLOYEES (employee_id),
+    diacrisis_id       INTEGER      NOT NULL REFERENCES hospital.DIACRISISES (diacrisis_id),
+    entry_dttm         TIMESTAMP(0) NOT NULL,
     treatment_end_dttm TIMESTAMP(0),
-    current_status_dk VARCHAR(255) CHECK (current_status_dk = 'OK' or current_status_dk = 'D' or
-                                          current_status_dk is NULL),
-    in_patient_flag BOOLEAN
+    current_status_dk  VARCHAR(255) CHECK (current_status_dk = 'OK' or current_status_dk = 'D' or
+                                           current_status_dk is NULL),
+    in_patient_flag    BOOLEAN
 );
 
 DROP TABLE IF EXISTS hospital.DRUGS_X_DIACRISISES;
-CREATE TABLE hospital.DRUGS_X_DIACRISISES (
-    drug_id INTEGER REFERENCES hospital.DRUGS (drug_id),
-    diacrisis_id INTEGER REFERENCES hospital.DIACRISISES (diacrisis_id),
+CREATE TABLE hospital.DRUGS_X_DIACRISISES
+(
+    drug_id       INTEGER REFERENCES hospital.DRUGS (drug_id),
+    diacrisis_id  INTEGER REFERENCES hospital.DIACRISISES (diacrisis_id),
     duration_days INTEGER CHECK (duration_days is NULL or duration_days >= 0)
 );
 

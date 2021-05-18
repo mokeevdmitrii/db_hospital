@@ -10,16 +10,24 @@ SET diacrisis_id = 6
 WHERE diacrisis_id = 5;
 
 /* удалить вообще весь ковид */
-DELETE FROM treatment_history WHERE diacrisis_id = 6;
+DELETE
+FROM treatment_history
+WHERE diacrisis_id = 6;
 
 /* посмотрим на все лекарства */
-SELECT * from drugs;
+SELECT *
+from drugs;
 
 /* вставим лекарство от спазма */
-INSERT INTO drugs VALUES (10, 'Спазмалгон', 6);
+INSERT INTO drugs
+VALUES (10, 'Спазмалгон', 6);
 
 /* ввели ограничение 12 лет на спазмалгон */
-UPDATE drugs as d SET min_age_dk = 12 WHERE drug_nm = 'Спазмалгон';
+UPDATE drugs as d
+SET min_age_dk = 12
+WHERE drug_nm = 'Спазмалгон';
 
 /* удалим его лучше */
-DELETE FROM drugs WHERE drug_nm = 'Спазмалгон';
+DELETE
+FROM drugs
+WHERE drug_nm = 'Спазмалгон';

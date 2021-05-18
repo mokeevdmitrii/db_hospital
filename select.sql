@@ -63,6 +63,8 @@ SELECT department_nm, count(*), in_patient_bed_cnt
 FROM treatment_history
          INNER JOIN diacrisises d on treatment_history.diacrisis_id = d.diacrisis_id
          INNER JOIN departments d2 on d.department_id = d2.department_id
-WHERE entry_dttm::date <= DATE'15-06-2020' and treatment_end_dttm::date >= DATE'15-06-2020' and in_patient_flag is TRUE
+WHERE entry_dttm::date <= DATE'15-06-2020'
+  and treatment_end_dttm::date >= DATE'15-06-2020'
+  and in_patient_flag is TRUE
 GROUP BY department_nm, in_patient_bed_cnt;
 
